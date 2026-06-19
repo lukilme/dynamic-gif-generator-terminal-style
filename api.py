@@ -1,6 +1,8 @@
-import requests
 import json
 import time
+
+import requests
+
 
 def fetch_repos(user, page=1, per_page=100):
     url = f"https://api.github.com/users/{user}/repos"
@@ -11,6 +13,7 @@ def fetch_repos(user, page=1, per_page=100):
         return []
     return response.json()
 
+
 def fetch_languages(owner, repo):
     url = f"https://api.github.com/repos/{owner}/{repo}/languages"
     response = requests.get(url)
@@ -18,11 +21,13 @@ def fetch_languages(owner, repo):
         return {}
     return response.json()
 
+
 def calculate_percentages(lang_bytes):
     total = sum(lang_bytes.values())
     if total == 0:
         return {}
-    return {lang: round((count / total)*100, 2) for lang, count in lang_bytes.items()}
+    return {lang: round((count / total) * 100, 2) for lang, count in lang_bytes.items()}
+
 
 def main():
     user = "lukilme"
@@ -40,6 +45,9 @@ def main():
             forks = r["forks_count"]
             created_at = r["created_at"]
 
+            print(forks)
+            print(stars)
+
             langs_bytes = fetch_languages(user, repo_name)
             langs_pct = calculate_percentages(langs_bytes)
 
@@ -47,7 +55,7 @@ def main():
                 "name": repo_name,
                 "description": desc,
                 "created_at": created_at,
-                "languages_percent": langs_pct
+                "languages_percent": langs_pct,
             }
             all_repos_data.append(repo_data)
 
@@ -59,6 +67,7 @@ def main():
         json.dump(all_repos_data, f, indent=4)
 
     print("Arquivo data.json salvo com sucesso!")
+
 
 if __name__ == "__main__":
     main()
