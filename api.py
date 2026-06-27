@@ -45,9 +45,6 @@ def main():
             forks = r["forks_count"]
             created_at = r["created_at"]
 
-            print(forks)
-            print(stars)
-
             langs_bytes = fetch_languages(user, repo_name)
             langs_pct = calculate_percentages(langs_bytes)
 

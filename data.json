@@ -14,21 +14,10 @@
         }
     },
     {
-        "name": "bubble-music-mirror",
-        "description": "It consists of an audio and video input interceptor, where both are dynamically merged and, through some filters, a \"visual show\" is created.",
-        "created_at": "2026-02-23T13:16:07Z",
-        "languages_percent": {
-            "Python": 100.0
-        }
-    },
-    {
-        "name": "django-classroom",
+        "name": "dataframe_reporter",
         "description": "",
-        "created_at": "2025-09-24T22:44:06Z",
-        "languages_percent": {
-            "Python": 95.68,
-            "Dockerfile": 4.32
-        }
+        "created_at": "2026-06-10T00:03:58Z",
+        "languages_percent": {}
     },
     {
         "name": "dynamic-gif-generator-terminal-style",
@@ -50,17 +39,16 @@
         }
     },
     {
-        "name": "flutter-rest-and-graphql",
-        "description": "",
-        "created_at": "2025-12-31T15:21:46Z",
-        "languages_percent": {}
-    },
-    {
-        "name": "go-classroom",
-        "description": "",
-        "created_at": "2025-09-26T00:46:32Z",
+        "name": "fenix_wave",
+        "description": "WAVE",
+        "created_at": "2026-05-26T23:52:55Z",
         "languages_percent": {
-            "Go": 100.0
+            "Python": 63.18,
+            "HTML": 24.46,
+            "Shell": 6.72,
+            "JavaScript": 4.73,
+            "Dockerfile": 0.53,
+            "CSS": 0.38
         }
     },
     {
@@ -68,20 +56,11 @@
         "description": "Esta pr\u00e1tica consiste na implementa\u00e7\u00e3o em um projeto em Go que aplica o estilo arquitetural hexagonal para a implementa\u00e7\u00e3o de microsservi\u00e7os e gRPC para a comunica\u00e7\u00e3o entre servi\u00e7os",
         "created_at": "2025-12-08T21:21:47Z",
         "languages_percent": {
-            "Go": 94.95,
-            "Shell": 1.94,
-            "SQL": 1.48,
-            "Makefile": 1.33,
-            "Dockerfile": 0.29
-        }
-    },
-    {
-        "name": "k-system",
-        "description": "",
-        "created_at": "2026-02-13T14:40:32Z",
-        "languages_percent": {
-            "Dockerfile": 50.24,
-            "Python": 49.76
+            "Go": 94.58,
+            "Shell": 2.09,
+            "SQL": 1.59,
+            "Makefile": 1.43,
+            "Dockerfile": 0.31
         }
     },
     {
@@ -95,8 +74,19 @@
         "description": "Config files for my GitHub profile. It is also my portfolio and curriculum vitae",
         "created_at": "2024-06-05T23:39:27Z",
         "languages_percent": {
-            "CSS": 90.52,
-            "JavaScript": 9.48
+            "CSS": 67.39,
+            "JavaScript": 32.61
+        }
+    },
+    {
+        "name": "mirror-notes",
+        "description": "It consists of an audio and video input interceptor, where both are dynamically merged and, through some filters, a \"visual show\" is created. ",
+        "created_at": "2026-06-22T12:22:40Z",
+        "languages_percent": {
+            "C++": 86.6,
+            "CMake": 11.79,
+            "Makefile": 1.19,
+            "Shell": 0.42
         }
     },
     {
@@ -109,38 +99,12 @@
         }
     },
     {
-        "name": "portfolio",
-        "description": "",
-        "created_at": "2026-02-09T22:21:48Z",
-        "languages_percent": {}
-    },
-    {
         "name": "python-chess-logger",
         "description": "application that analyzes chess matches using stockfish, generates a report and saves it for future analysis purposes",
         "created_at": "2024-07-20T02:26:00Z",
         "languages_percent": {
             "Python": 97.22,
             "Makefile": 2.78
-        }
-    },
-    {
-        "name": "report-generator",
-        "description": "",
-        "created_at": "2025-11-26T08:53:48Z",
-        "languages_percent": {
-            "Go": 53.26,
-            "Jupyter Notebook": 46.74
-        }
-    },
-    {
-        "name": "rpc-project-go",
-        "description": "",
-        "created_at": "2025-11-20T01:33:24Z",
-        "languages_percent": {
-            "Go": 62.7,
-            "Jupyter Notebook": 21.05,
-            "Makefile": 14.0,
-            "Dockerfile": 2.25
         }
     },
     {
@@ -152,5 +116,33 @@
             "Dockerfile": 3.78,
             "Shell": 1.04
         }
+    },
+    {
+        "name": "Spotcharts",
+        "description": "",
+        "created_at": "2026-06-08T23:40:07Z",
+        "languages_percent": {
+            "JavaScript": 50.07,
+            "Python": 33.03,
+            "CSS": 10.35,
+            "HTML": 6.15,
+            "Dockerfile": 0.41
+        }
+    },
+    {
+        "name": "youtube-miner",
+        "description": "A Data Science Pipeline for Sustainable Collection, Exploratory Analysis, and Baseline Modeling on YouTube.",
+        "created_at": "2026-05-28T13:27:45Z",
+        "languages_percent": {
+            "Jupyter Notebook": 75.14,
+            "Python": 24.82,
+            "Shell": 0.04
+        }
+    },
+    {
+        "name": "yt-miner",
+        "description": "",
+        "created_at": "2026-06-22T12:21:51Z",
+        "languages_percent": {}
     }
 ]
