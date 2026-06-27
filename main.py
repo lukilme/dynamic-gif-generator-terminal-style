@@ -107,7 +107,7 @@ def main():
 
             all_repos_data.append(repo_data)
 
-            time.sleep(0.3)
+            time.sleep(0.5)
 
         page += 1
 
