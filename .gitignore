@@ -2,3 +2,5 @@
 .github
 .git
 commands.sh
+.venv
+__pycache__
