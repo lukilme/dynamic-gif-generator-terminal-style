@@ -2,3 +2,7 @@
 .vscode
 __pycache__/
 *.pyc
+*.log
+/data/*.json
+/assets/gifs/*.gif
+/logs/*.log

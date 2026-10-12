@@ -37,10 +37,11 @@ def make_progress_race_gif(
         for i, (lbl, val) in enumerate(zip(labels, values)):
             col = colors[i % len(colors)]
             wobble = random.randint(-1, 1) if f % 6 == 0 else 0
-            fill_w = (val / max_val) * bar_w * prog
+            fill_w = max(0.0, (val / max_val) * bar_w * prog)
+            fill_end = max(ox, ox + fill_w + wobble)
             fr.draw.rectangle([ox, y, ox + bar_w, y + bar_h], outline=Palette.GRID)
             fr.draw.rectangle(
-                [ox, y, ox + fill_w + wobble, y + bar_h],
+                [ox, y, fill_end, y + bar_h],
                 fill=tuple(max(0, c - 60) for c in col),
             )
             fr.draw.text(
