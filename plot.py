@@ -1,37 +1,23 @@
 from __future__ import annotations
 
-import math
-import os
-import random
-from dataclasses import dataclass, field
-from typing import Callable
-
-import numpy as np
-from PIL import Image, ImageDraw, ImageFont
-from plots.util import load_fonts
 from plots.constants import Palette
+from plots.util import load_fonts
 
 FONTS = load_fonts()
 
-from plots.line_chart_gif import make_line_chart_gif
 from plots.bar_chart_gif import make_bar_chart_gif
+from plots.bar_gif_v2 import make_bar_gif as make_bar_gif_v2
 from plots.donut_gif import make_donut_gif
-from plots.stacked_bar_gif import make_stacked_bar_gif
+from plots.gauge_gif import make_gauge_gif
+from plots.line_chart_gif import make_line_chart_gif
+from plots.line_gif import make_line_gif as make_line_gif_v2
 from plots.merged_donut_gif import make_merged_donut_gif
 from plots.radar_gif import make_radar_gif
-from plots.bar_gif_v2 import make_bar_gif as make_bar_gif_v2
-from plots.gauge_gif import make_gauge_gif
-from plots.line_gif import make_line_gif as make_line_gif_v2
-
-
-
- 
-
-
+from plots.stacked_bar_gif import make_stacked_bar_gif
 
 if __name__ == "__main__":
-    import pandas as pd
     import json
+
     with open("./data.json") as file:
         data = json.load(file)
 
@@ -63,106 +49,111 @@ if __name__ == "__main__":
     #     ],
     # }
     DATA = data
-    print(DATA['repositories'])
+    print(DATA["repositories"])
     repos = DATA["repositories"]
 
     make_bar_chart_gif(
-        labels   = [r["name"] for r in repos],
-        values   = [r["total_code_bytes"] for r in repos],
-        title    = ">> REPO SIZE  BYTES",
-        subtitle = f"@{DATA['user']}",
-        footer   = f"TOTAL: {DATA['total_code_bytes_all_repos']:,} bytes  |  REPOS: {DATA['total_repositories']}",
-        colors   = [Palette.CYAN, Palette.MAGENTA, Palette.GREEN, Palette.YELLOW],
-        out_path = "imgs/repo_sizes.gif",
-        FONTS = FONTS
+        labels=[r["name"] for r in repos],
+        values=[r["total_code_bytes"] for r in repos],
+        title=">> REPO SIZE  BYTES",
+        subtitle=f"@{DATA['user']}",
+        footer=f"TOTAL: {DATA['total_code_bytes_all_repos']:,} bytes  |  REPOS: {DATA['total_repositories']}",
+        colors=[Palette.CYAN, Palette.MAGENTA, Palette.GREEN, Palette.YELLOW],
+        out_path="imgs/repo_sizes.gif",
+        FONTS=FONTS,
     )
 
     bd = repos[0]
     make_donut_gif(
-        labels   = list(bd["languages_percent"].keys()),
-        values   = list(bd["languages_percent"].values()),
-        title    = ">> LANGUAGE BREAKDOWN",
-        subtitle = bd["name"][:28],
-        footer   = f"7 languages  |  {bd['total_code_bytes']:,} bytes",
-        out_path = "imgs/language_pie.gif",
-        FONTS = FONTS
+        labels=list(bd["languages_percent"].keys()),
+        values=list(bd["languages_percent"].values()),
+        title=">> LANGUAGE BREAKDOWN",
+        subtitle=bd["name"][:28],
+        footer=f"7 languages  |  {bd['total_code_bytes']:,} bytes",
+        out_path="imgs/language_pie.gif",
+        FONTS=FONTS,
     )
     make_merged_donut_gif(
-        repos    = repos,
-        title    = ">> LANGUAGES · ALL REPOS",
-        out_path = "imgs/all_langs_merged.gif",
-        FONTS = FONTS
+        repos=repos,
+        title=">> LANGUAGES · ALL REPOS",
+        out_path="imgs/all_langs_merged.gif",
+        FONTS=FONTS,
     )
 
     all_langs = sorted({l for r in repos for l in r["languages_percent"]})
-    matrix    = [[r["languages_percent"].get(l, 0) for l in all_langs] for r in repos]
+    matrix = [[r["languages_percent"].get(l, 0) for l in all_langs] for r in repos]
     make_stacked_bar_gif(
-        categories = [r["name"] for r in repos],
-        groups     = all_langs,
-        matrix     = matrix,
-        title      = ">> STACK: LANG / REPO",
-        footer     = "% of total bytes per repo",
-        out_path   = "imgs/stacked_langs.gif",
-        FONTS = FONTS
+        categories=[r["name"] for r in repos],
+        groups=all_langs,
+        matrix=matrix,
+        title=">> STACK: LANG / REPO",
+        footer="% of total bytes per repo",
+        out_path="imgs/stacked_langs.gif",
+        FONTS=FONTS,
     )
 
-    import datetime
+
     dates = sorted(
-        [r.get("created_at", "")[:10] for r in DATA["repositories"] if r.get("created_at")],
+        [
+            r.get("created_at", "")[:10]
+            for r in DATA["repositories"]
+            if r.get("created_at")
+        ],
     )
     make_line_chart_gif(
-        series    = {"bytes": [r["total_code_bytes"] for r in repos]},
-        x_labels  = [r["name"][:8] for r in repos],
-        title     = ">> BYTES OVER REPOS",
-        subtitle  = f"@{DATA['user']}",
-        footer    = "ordered by creation date",
-        colors    = [Palette.CYAN],
-        out_path  = "imgs/bytes_line.gif",
-        FONTS = FONTS
+        series={"bytes": [r["total_code_bytes"] for r in repos]},
+        x_labels=[r["name"][:8] for r in repos],
+        title=">> BYTES OVER REPOS",
+        subtitle=f"@{DATA['user']}",
+        footer="ordered by creation date",
+        colors=[Palette.CYAN],
+        out_path="imgs/bytes_line.gif",
+        FONTS=FONTS,
     )
 
     make_radar_gif(
-        labels    = all_langs,
-        values    = [sum(r["languages_percent"].get(l, 0) for r in repos) for l in all_langs],
-        title     = ">> LANGUAGES RADAR",
-        subtitle  = f"@{DATA['user']}",
-        footer    = "sum of percentages across all repos",
-        color     = Palette.MAGENTA,
-        out_path  = "imgs/langs_radar.gif",
-        FONTS = FONTS
+        labels=all_langs,
+        values=[
+            sum(r["languages_percent"].get(l, 0) for r in repos) for l in all_langs
+        ],
+        title=">> LANGUAGES RADAR",
+        subtitle=f"@{DATA['user']}",
+        footer="sum of percentages across all repos",
+        color=Palette.MAGENTA,
+        out_path="imgs/langs_radar.gif",
+        FONTS=FONTS,
     )
 
     make_bar_gif_v2(
-        labels   = [r["name"] for r in repos],
-        values   = [r["total_code_bytes"] for r in repos],
-        title    = ">> REPO SIZE  BYTES",
-        subtitle = f"@{DATA['user']}",
-        footer   = f"TOTAL: {DATA['total_code_bytes_all_repos']:,} bytes  |  REPOS: {DATA['total_repositories']}",
-        colors   = [Palette.CYAN, Palette.MAGENTA, Palette.GREEN, Palette.YELLOW],
-        out_path = "imgs/repo_sizes_v2.gif",
-        FONTS = FONTS
+        labels=[r["name"] for r in repos],
+        values=[r["total_code_bytes"] for r in repos],
+        title=">> REPO SIZE  BYTES",
+        subtitle=f"@{DATA['user']}",
+        footer=f"TOTAL: {DATA['total_code_bytes_all_repos']:,} bytes  |  REPOS: {DATA['total_repositories']}",
+        colors=[Palette.CYAN, Palette.MAGENTA, Palette.GREEN, Palette.YELLOW],
+        out_path="imgs/repo_sizes_v2.gif",
+        FONTS=FONTS,
     )
 
     make_line_gif_v2(
-        labels   = [r["name"] for r in repos],
-        values   = [r["total_code_bytes"] for r in repos],
-        title    = ">> BYTES OVER REPOS",
-        subtitle = f"@{DATA['user']}",
-        footer   = "ordered by creation date",
-        color    = Palette.CYAN,
-        out_path = "imgs/bytes_line_v2.gif",
-        FONTS = FONTS
+        labels=[r["name"] for r in repos],
+        values=[r["total_code_bytes"] for r in repos],
+        title=">> BYTES OVER REPOS",
+        subtitle=f"@{DATA['user']}",
+        footer="ordered by creation date",
+        color=Palette.CYAN,
+        out_path="imgs/bytes_line_v2.gif",
+        FONTS=FONTS,
     )
 
     make_gauge_gif(
-        value    = DATA['total_code_bytes_all_repos'],
-        max_value= 1000000,
-        title    = ">> TOTAL CODE BYTES",
-        subtitle = f"@{DATA['user']}",
-        label = f"{DATA['total_code_bytes_all_repos']:,} bytes",
-        footer   = f"across {DATA['total_repositories']} repos",
-        color    = Palette.CYAN,
-        out_path = "imgs/total_bytes_gauge.gif",
-        FONTS = FONTS
+        value=DATA["total_code_bytes_all_repos"],
+        max_value=1000000,
+        title=">> TOTAL CODE BYTES",
+        subtitle=f"@{DATA['user']}",
+        label=f"{DATA['total_code_bytes_all_repos']:,} bytes",
+        footer=f"across {DATA['total_repositories']} repos",
+        color=Palette.CYAN,
+        out_path="imgs/total_bytes_gauge.gif",
+        FONTS=FONTS,
     )
-

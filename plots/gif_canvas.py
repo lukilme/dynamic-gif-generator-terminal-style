@@ -14,6 +14,7 @@ class Frame:
     img: Image.Image
     draw: ImageDraw.ImageDraw
 
+
 class GifCanvas:
     def __init__(
         self,
