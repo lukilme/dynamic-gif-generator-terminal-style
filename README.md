@@ -45,9 +45,66 @@ python plot.py
 - Os artefatos gerados ficam fora da raiz para manter o projeto mais organizado.
 - O diretório `plots/` concentra a lógica dos gráficos.
 - `github_profile_gif/` centraliza a coleta e a geração do dashboard.
+- O arquivo `.github/workflows/main.yml` está comentado intencionalmente para não executar automaticamente agora.
+
+## Workflow do GitHub Actions
+
+O projeto já inclui um workflow para atualizar o GIF automaticamente, mas ele foi deixado comentado para evitar execução imediata. Isso é útil quando você quer controlar manualmente quando os dados devem ser atualizados.
+
+Para ativar a atualização dinâmica mais tarde, basta descomentar o conteúdo de `.github/workflows/main.yml` e realizar um commit no branch principal. O workflow pode rodar em:
+
+- agendamento diário com `cron`
+- execução manual via `workflow_dispatch`
+- push na branch principal
+
+Exemplo de cenário ativado:
+
+```yaml
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+```
+
+## Como usar no README do perfil do GitHub
+
+1. Crie um repositório cujo nome seja exatamente o seu nome de usuário do GitHub, por exemplo:
+   `github.com/seu-usuario/seu-usuario`
+2. Faça o push deste projeto para esse repositório.
+3. No arquivo `README.md` do perfil, adicione uma imagem vinculando ao GIF gerado.
+
+Exemplo:
+
+```md
+![GitHub Profile GIF](https://raw.githubusercontent.com/seu-usuario/seu-usuario/main/assets/gifs/repo_sizes.gif)
+```
+
+Ou em HTML para maior compatibilidade:
+
+```html
+<img src="https://raw.githubusercontent.com/seu-usuario/seu-usuario/main/assets/gifs/repo_sizes.gif" alt="GitHub Profile GIF" width="800" />
+```
+
+> O caminho da imagem deve apontar para o arquivo GIF gerado no seu repositório do perfil.
+
+## Atualização dinâmica
+
+Depois que o workflow estiver ativado, ele executa a coleta dos dados e gera novamente os GIFs automaticamente. Como o README do perfil usa a URL do arquivo no GitHub, o conteúdo do perfil atualiza assim que o GIF for regenerado e enviado ao branch principal.
+
+Em resumo:
+
+- o workflow coleta dados
+- gera a imagem no diretório `assets/gifs/`
+- o arquivo é commitado no repositório
+- o README do perfil exibe a imagem mais recente
 
 ## Dica para README
 
 ```md
 ![GitHub Stats](assets/gifs/repo_sizes.gif)
 ```
+
+Se quiser, também posso preparar a versão final do arquivo README em português/inglês com uma apresentação mais profissional para publicar no GitHub.
