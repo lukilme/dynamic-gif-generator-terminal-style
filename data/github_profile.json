@@ -1,0 +1,201 @@
+{
+    "user": "lukilme",
+    "total_repositories": 18,
+    "total_code_bytes_all_repos": 2556264,
+    "repositories": [
+        {
+            "name": "big-data-analysis-cluster",
+            "description": "Big Data *analytics* cluster with Hadoop, Spark, Hive and Sqoop components. Developed in Docker for study purposes. ",
+            "created_at": "2025-04-19T13:51:43Z",
+            "total_code_bytes": 67878,
+            "languages_percent": {
+                "HiveQL": 36.85,
+                "Scala": 24.78,
+                "Shell": 20.5,
+                "XML": 9.32,
+                "Dockerfile": 6.83,
+                "Perl": 1.05,
+                "INI": 0.66
+            }
+        },
+        {
+            "name": "dataframe_reporter",
+            "description": "",
+            "created_at": "2026-06-10T00:03:58Z",
+            "total_code_bytes": 0,
+            "languages_percent": {}
+        },
+        {
+            "name": "dynamic-gif-generator-terminal-style",
+            "description": "Script to generate a dynamic GIF for the GitHub README.md file using GitHub Actions.",
+            "created_at": "2026-02-22T23:43:05Z",
+            "total_code_bytes": 92623,
+            "languages_percent": {
+                "Python": 98.54,
+                "YAML": 1.46
+            }
+        },
+        {
+            "name": "extractor-web-crawler",
+            "description": "A Django-based web system that allows administrators to register and manage web scraping scripts (rules or small scripts) to extract content from pages.",
+            "created_at": "2025-11-20T22:55:33Z",
+            "total_code_bytes": 297329,
+            "languages_percent": {
+                "HTML": 69.08,
+                "Python": 30.23,
+                "JavaScript": 0.39,
+                "Dockerfile": 0.3
+            }
+        },
+        {
+            "name": "gRPC-project",
+            "description": "Esta pr\u00e1tica consiste na implementa\u00e7\u00e3o em um projeto em Go que aplica o estilo arquitetural hexagonal para a implementa\u00e7\u00e3o de microsservi\u00e7os e gRPC para a comunica\u00e7\u00e3o entre servi\u00e7os",
+            "created_at": "2025-12-08T21:21:47Z",
+            "total_code_bytes": 71677,
+            "languages_percent": {
+                "Go": 94.58,
+                "Shell": 2.09,
+                "SQL": 1.59,
+                "Makefile": 1.43,
+                "Dockerfile": 0.31
+            }
+        },
+        {
+            "name": "iftech-dockersim",
+            "description": "O DockerSim \u00e9 um simulador interativo de Docker criado para rodar diretamente no navegador",
+            "created_at": "2026-07-14T22:56:24Z",
+            "total_code_bytes": 114317,
+            "languages_percent": {
+                "JavaScript": 61.14,
+                "CSS": 17.73,
+                "HTML": 12.35,
+                "Shell": 4.38,
+                "Python": 3.11,
+                "Dockerfile": 1.05,
+                "Go": 0.25
+            }
+        },
+        {
+            "name": "java-web-study",
+            "description": "Servlets, portlets, and other things already existed before I was born. A simple service created as a learning tool to accommodate different functionalities.",
+            "created_at": "2026-08-22T00:40:52Z",
+            "total_code_bytes": 28664,
+            "languages_percent": {
+                "Java": 97.67,
+                "Makefile": 2.33
+            }
+        },
+        {
+            "name": "lamp-stack-example",
+            "description": "",
+            "created_at": "2025-11-18T19:16:54Z",
+            "total_code_bytes": 0,
+            "languages_percent": {}
+        },
+        {
+            "name": "love-letter-web",
+            "description": "",
+            "created_at": "2026-09-06T22:17:22Z",
+            "total_code_bytes": 45787,
+            "languages_percent": {
+                "TypeScript": 97.53,
+                "CSS": 1.25,
+                "JavaScript": 1.22
+            }
+        },
+        {
+            "name": "lukilme",
+            "description": "Config files for my GitHub profile. It is also my portfolio and curriculum vitae",
+            "created_at": "2024-06-05T23:39:27Z",
+            "total_code_bytes": 11275,
+            "languages_percent": {
+                "CSS": 67.39,
+                "JavaScript": 32.61
+            }
+        },
+        {
+            "name": "machine_learning_classes",
+            "description": "",
+            "created_at": "2026-09-28T00:11:18Z",
+            "total_code_bytes": 54646,
+            "languages_percent": {
+                "Jupyter Notebook": 100.0
+            }
+        },
+        {
+            "name": "mirror-notes",
+            "description": "It consists of an audio and video input interceptor, where both are dynamically merged and, through some filters, a \"visual show\" is created. ",
+            "created_at": "2026-06-22T12:22:40Z",
+            "total_code_bytes": 42768,
+            "languages_percent": {
+                "C++": 85.81,
+                "CMake": 8.23,
+                "Shell": 5.19,
+                "Makefile": 0.77
+            }
+        },
+        {
+            "name": "pob-artistryhub",
+            "description": "project carried out for the object persistence course using the java language. The general idea being to create an information system, with the theme 'Presentation of artist'",
+            "created_at": "2024-07-02T21:12:14Z",
+            "total_code_bytes": 81877,
+            "languages_percent": {
+                "Java": 99.83,
+                "Dockerfile": 0.17
+            }
+        },
+        {
+            "name": "portfolio-website",
+            "description": "my repository for storing the portfolio file",
+            "created_at": "2026-02-09T22:21:48Z",
+            "total_code_bytes": 70748,
+            "languages_percent": {
+                "Astro": 56.12,
+                "TypeScript": 35.97,
+                "CSS": 6.22,
+                "JavaScript": 1.69
+            }
+        },
+        {
+            "name": "python-chess-logger",
+            "description": "application that analyzes chess matches using stockfish, generates a report and saves it for future analysis purposes",
+            "created_at": "2024-07-20T02:26:00Z",
+            "total_code_bytes": 33845,
+            "languages_percent": {
+                "Python": 93.67,
+                "Makefile": 6.33
+            }
+        },
+        {
+            "name": "rust-dynamo-integration",
+            "description": "Studies of integration testing with Rust in a REST service context and DynamoDB - AWS document storage service.",
+            "created_at": "2025-12-21T01:06:46Z",
+            "total_code_bytes": 14890,
+            "languages_percent": {
+                "Rust": 95.18,
+                "Dockerfile": 3.78,
+                "Shell": 1.04
+            }
+        },
+        {
+            "name": "social-media-bot-integration",
+            "description": "",
+            "created_at": "2026-10-08T16:03:22Z",
+            "total_code_bytes": 9151,
+            "languages_percent": {
+                "Python": 100.0
+            }
+        },
+        {
+            "name": "youtube-miner",
+            "description": "A Data Science Pipeline for Sustainable Collection, Exploratory Analysis, and Baseline Modeling on YouTube.",
+            "created_at": "2026-05-28T13:27:45Z",
+            "total_code_bytes": 1518789,
+            "languages_percent": {
+                "Jupyter Notebook": 73.92,
+                "Python": 26.07,
+                "Shell": 0.01
+            }
+        }
+    ]
+}

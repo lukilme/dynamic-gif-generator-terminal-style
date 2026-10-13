@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Profile GIF Control Panel</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #121a2b;
+        --panel-alt: #1a2438;
+        --line: #2d3a52;
+        --text: #eaf2ff;
+        --muted: #a9b7d0;
+        --accent: #64d2ff;
+        --accent-2: #8b5cf6;
+        --success: #34d399;
+        --warning: #fbbf24;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+      }
+
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 28px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+      }
+
+      .badge {
+        background: rgba(100, 210, 255, 0.14);
+        border: 1px solid rgba(100, 210, 255, 0.4);
+        color: var(--accent);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        background: rgba(18, 26, 43, 0.9);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .stat {
+        font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .section-title {
+        margin: 28px 0 16px;
+        font-size: 1.35rem;
+      }
+
+      .gif-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .gif-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .gif-card img {
+        width: 100%;
+        display: block;
+        background: #0a1222;
+        min-height: 180px;
+        object-fit: contain;
+      }
+
+      .gif-card .meta {
+        padding: 14px 16px 18px;
+      }
+
+      .gif-card h3 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+      }
+
+      .gif-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .json-panel {
+        background: var(--panel-alt);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        overflow: auto;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: #dfeaff;
+        font-size: 0.86rem;
+        line-height: 1.6;
+      }
+
+      .loading {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding-top: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div>
+          <h1>GitHub Profile GIF Control Panel</h1>
+        </div>
+        <div class="badge">Monitor de geração</div>
+      </header>
+
+      <section class="summary-grid" id="summary"></section>
+
+      <h2 class="section-title">GIFs gerados</h2>
+      <section class="gif-grid" id="gifGrid"></section>
+
+      <h2 class="section-title">JSON gerado</h2>
+      <section class="json-panel">
+        <pre id="jsonOutput" class="loading">Carregando dados...</pre>
+      </section>
+    </div>
+
+    <script>
+      const gifFiles = [
+        { file: 'assets/gifs/repo_sizes.gif', title: 'Tamanho dos repositórios', description: 'Comparativo de tamanho por repositório' },
+        { file: 'assets/gifs/language_pie.gif', title: 'Distribuição por linguagem', description: 'Breakdown de linguagem do repositório principal' },
+        { file: 'assets/gifs/all_langs_merged.gif', title: 'Linguagens em todos os repositórios', description: 'Visão conjunta de todas as linguagens' },
+        { file: 'assets/gifs/stacked_langs.gif', title: 'Stack por repositório', description: 'Comparativo de linguagens por projeto' },
+        { file: 'assets/gifs/bytes_line.gif', title: 'Bytes por repositório', description: 'Evolução do uso de bytes' },
+        { file: 'assets/gifs/langs_radar.gif', title: 'Radar de linguagens', description: 'Resumo visual das linguagens' },
+        { file: 'assets/gifs/repo_sizes_v2.gif', title: 'Versão alternada do gráfico', description: 'Visualização alternativa de repos' },
+        { file: 'assets/gifs/bytes_line_v2.gif', title: 'Linha de bytes v2', description: 'Gráfico alternativo da série temporal' },
+        { file: 'assets/gifs/total_bytes_gauge.gif', title: 'Gauge total', description: 'Indicador do total geral de bytes' }
+      ];
+
+      const summaryEl = document.getElementById('summary');
+      const gifGridEl = document.getElementById('gifGrid');
+      const jsonOutputEl = document.getElementById('jsonOutput');
+
+      function renderSummary(data) {
+        const cards = [
+          { label: 'Usuário', value: data.user || 'N/A' },
+          { label: 'Repositórios', value: data.total_repositories ?? 0 },
+          { label: 'Total de bytes', value: new Intl.NumberFormat('en-US').format(data.total_code_bytes_all_repos ?? 0) },
+          { label: 'Arquivos GIF', value: gifFiles.length }
+        ];
+
+        summaryEl.innerHTML = cards.map(item => `
+          <article class="card">
+            <h2>${item.label}</h2>
+            <p class="stat">${item.value}</p>
+          </article>
+        `).join('');
+      }
+
+      function renderGifs() {
+        gifGridEl.innerHTML = gifFiles.map(gif => `
+          <article class="gif-card">
+            <img src="${gif.file}" alt="${gif.title}" />
+            <div class="meta">
+              <h3>${gif.title}</h3>
+              <p>${gif.description}</p>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      async function loadJson() {
+        try {
+          const response = await fetch('data/github_profile.json');
+          if (!response.ok) throw new Error('JSON não encontrado');
+          const data = await response.json();
+          renderSummary(data);
+          jsonOutputEl.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          jsonOutputEl.textContent = `Erro ao carregar o JSON: ${error.message}\n\nVerifique se o arquivo data/github_profile.json foi gerado antes de abrir esta página.`;
+          summaryEl.innerHTML = `
+            <article class="card">
+              <h2>Status</h2>
+              <p class="stat">Sem dados</p>
+            </article>
+          `;
+        }
+      }
+
+      renderGifs();
+      loadJson();
+    </script>
+  </body>
+</html>
