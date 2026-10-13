@@ -37,6 +37,63 @@ class GifCanvas:
         self._scanlines = (
             self._make_scanlines(scanline_alpha) if scanline_alpha else None
         )
+        self._matrix_enabled = True
+        self._matrix_cycle = 32
+        self._matrix_step = 0
+        self._matrix_speed = 1
+        self._matrix_density = 1.0
+        self._matrix_glow = 1.0
+        self._matrix_seed = 7
+        self._matrix_columns = self._build_matrix_columns()
+
+    def configure_matrix(
+        self,
+        enabled: bool | None = None,
+        cycle: int | None = None,
+        speed: int | None = None,
+        density: float | None = None,
+        glow: float | None = None,
+        seed: int | None = None,
+    ) -> None:
+        if enabled is not None:
+            self._matrix_enabled = enabled
+        if cycle is not None:
+            self._matrix_cycle = max(8, int(cycle))
+        if speed is not None:
+            self._matrix_speed = max(1, int(speed))
+        if density is not None:
+            self._matrix_density = max(0.4, float(density))
+        if glow is not None:
+            self._matrix_glow = max(0.4, float(glow))
+        if seed is not None:
+            self._matrix_seed = seed
+            self._matrix_columns = self._build_matrix_columns()
+
+    def _build_matrix_columns(self):
+        columns = []
+        step = max(8, int(16 / self._matrix_density))
+        rng = random.Random(self._matrix_seed)
+        for x in range(0, self.W, step):
+            row_offsets = []
+            for _ in range(rng.randint(8, 18)):
+                row_offsets.append(rng.randint(0, self.H + 28))
+            columns.append((x, tuple(sorted(row_offsets))))
+        return columns
+
+    def _draw_matrix_rain(self, draw: ImageDraw.ImageDraw, phase: int):
+        if not self._matrix_enabled:
+            return
+        for x, rows in self._matrix_columns:
+            for idx, base_y in enumerate(rows):
+                y = (base_y + phase * self._matrix_speed + idx * 2) % (self.H + 50)
+                if y < self.H:
+                    glow = int((90 + (idx % 6) * 18) * self._matrix_glow)
+                    color = (10, max(80, glow), 34)
+                    draw.point((x, y), fill=color)
+                    if idx % 2 == 0:
+                        draw.point((x + 1, y), fill=(40, min(255, int(170 * self._matrix_glow)), 90))
+                    if idx % 3 == 0:
+                        draw.point((x, max(0, y - 1)), fill=(110, 255, 180))
 
     def _make_scanlines(self, alpha: int) -> Image.Image:
         ov = Image.new("RGBA", (self.W, self.H), (0, 0, 0, 0))
@@ -53,10 +110,32 @@ class GifCanvas:
         # for y in range(0, self.H, self.grid_step):
         #     draw.line([(0, y), (self.W, y)], fill=self.grid_color, width=0)
 
+    def _apply_bg_texture(self, draw: ImageDraw.ImageDraw):
+        for x in range(0, self.W, 24):
+            for y in range(0, self.H, 24):
+                if (x // 24 + y // 24) % 2 == 0:
+                    draw.rectangle(
+                        [x, y, x + 12, y + 12],
+                        fill=(18, 18, 35),
+                    )
+                else:
+                    draw.rectangle(
+                        [x + 8, y + 8, x + 20, y + 20],
+                        fill=(12, 28, 52),
+                    )
+
+        for x in range(0, self.W, 70):
+            draw.line([(x, 0), (x, self.H)], fill=(20, 255, 240, 30), width=1)
+
     def new_frame(self) -> Frame:
         img = Image.new("RGB", (self.W, self.H), self.bg_color)
         draw = ImageDraw.Draw(img)
+        phase = self._matrix_step % self._matrix_cycle
+        self._apply_bg_texture(draw)
+        if self._matrix_enabled:
+            self._draw_matrix_rain(draw, phase)
         self._draw_grid(draw)
+        self._matrix_step = (self._matrix_step + 1) % self._matrix_cycle
         return Frame(img, draw)
 
     def apply_scanlines(self, img: Image.Image) -> Image.Image:
