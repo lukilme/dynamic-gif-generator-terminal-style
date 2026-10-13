@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 *.log
 /logs/*.log
+/assets/gifs/*.gif
